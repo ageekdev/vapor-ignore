@@ -1,0 +1,51 @@
+{
+    "name": "ageekdev/vapor-ignore",
+    "description": "To clean unnecessary files for Laravel Vapor deployment",
+    "keywords": [
+        "laravel",
+        "vapor-ignore"
+    ],
+    "homepage": "https://github.com/ageekdev/vapor-ignore",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tint Naing Win",
+            "email": "amigo.k8@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "bin": [
+        "vapor-ignore"
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.0|^10.0",
+        "laravel/vapor-cli": "^1.40"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.10",
+        "nunomaduro/larastan": "^2.4.1",
+        "orchestra/testbench": "^7.0|^8.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "AgeekDev\\VaporIgnore\\": "src/"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
