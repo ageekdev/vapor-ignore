@@ -2,8 +2,7 @@
     "name": "ageekdev/vapor-ignore",
     "description": "To clean unnecessary files for Laravel Vapor deployment",
     "keywords": [
-        "laravel",
-        "vapor-ignore"
+        "laravel", "vapor-ignore", "vapor", "deployment", "serverless", "laravel-vapor", "ignore"
     ],
     "homepage": "https://github.com/ageekdev/vapor-ignore",
     "license": "MIT",
