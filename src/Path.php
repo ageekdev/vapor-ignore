@@ -11,7 +11,7 @@ class Path
      */
     public static function vendor(): string
     {
-        return static::build().'/vendor';
+        return static::current().'/vendor';
     }
 
     /**

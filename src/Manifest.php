@@ -87,7 +87,7 @@ class Manifest
     {
         $manifest = static::vapor();
 
-        $command = 'php ./vendor/bin/vapor-ignore clean:ignored-file';
+        $command = 'php ./vendor/bin/vapor-ignore clean:ignored-files';
 
         $environments = $manifest['environments'] ?? [];
 

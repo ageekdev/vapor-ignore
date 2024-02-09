@@ -3,17 +3,23 @@
 namespace AgeekDev\VaporIgnore\Commands;
 
 use AgeekDev\VaporIgnore\Manifest;
+use AgeekDev\VaporIgnore\Path;
 use AgeekDev\VaporIgnore\Vendor;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
-use Laravel\VaporCli\Path;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 class CleanIgnoredFilesCommand extends Command
 {
     protected Filesystem $files;
+
+    protected int $totalFiles = 0;
+
+    protected int $totalDirectories = 0;
+
+    protected int $totalFileSize = 0;
 
     /**
      * Configure the command options.
@@ -46,6 +52,9 @@ class CleanIgnoredFilesCommand extends Command
         $this->removeOtherFiles();
         $this->removeUserIgnoredFiles();
         $this->removeVaporIgnoreYml();
+
+        Helpers::step('<comment>Total Removed Files Size:</comment> '.round($this->totalFileSize / 1024, 2).'kb');
+
     }
 
     /**
@@ -68,6 +77,8 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeChangeLogFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::CHANGE_LOG)) {
+            Helpers::step('<options=bold>Removing CHANGELOG files</>');
+
             $this->removeFiles([
                 'CHANGELOG.md',
                 'changelog.htm',
@@ -81,7 +92,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeContributingFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::CONTRIBUTING)) {
-            Helpers::step('<options=bold>Removing UPGRADE files</>');
+            Helpers::step('<options=bold>Removing CONTRIBUTING files</>');
 
             $this->removeFiles([
                 'CONTRIBUTING.md',
@@ -96,7 +107,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeUpgradeFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::UPGRADE)) {
-            Helpers::step('<options=bold>Removing Upgrade files</>');
+            Helpers::step('<options=bold>Removing UPGRADE files</>');
 
             $this->removeFiles([
                 'UPGRADING.md',
@@ -111,7 +122,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeSecurityMdFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::SECURITY)) {
-            Helpers::step('<options=bold>Removing security.md files</>');
+            Helpers::step('<options=bold>Removing SECURITY.md files</>');
 
             $this->removeFiles([
                 'SECURITY.md',
@@ -125,7 +136,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeTestDirectories(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::TEST)) {
-            Helpers::step('<options=bold>Removing Test</>');
+            Helpers::step('<options=bold>Removing Test Folders</>');
 
             $this->removeFiles([
                 'phpunit.xml.dist',
@@ -137,6 +148,9 @@ class CleanIgnoredFilesCommand extends Command
                 ->in(Path::vendor().'/*/*/');
 
             foreach ($finder as $file) {
+                Helpers::step('<comment>Removing Ignored Directory:</comment> '.str_replace(Path::current().'/', '', $file->getRealPath()));
+                $this->totalFileSize += $file->getSize();
+                $this->totalFiles++;
                 $this->files->deleteDirectory($file->getRealPath(), true);
             }
         }
@@ -148,7 +162,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeLicenseFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::LICENSE)) {
-            Helpers::step('<options=bold>Removing License Files</>');
+            Helpers::step('<options=bold>Removing LICENSE Files</>');
 
             $this->removeFiles([
                 'LICENSE',
@@ -166,7 +180,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeLaravelIdeaDirectory(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::LARAVEL_IDEA)) {
-            Helpers::step('<options=bold>Removing Laravel Idea Folder</>');
+            Helpers::step('<options=bold>Removing Laravel IDEA Folder</>');
 
             $this->removeDirectory(Path::vendor().'/_laravel_idea');
         }
@@ -178,14 +192,21 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeDotGithubDirectories(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::DOT_GITHUB)) {
-            Helpers::step('<options=bold>Removing .github Folders From Vendor</>');
+            Helpers::step('<options=bold>Removing .github Folders</>');
 
             $finder = (new Finder())
                 ->ignoreDotFiles(false)
                 ->directories()->name('.github')
                 ->in(Path::vendor().'/*/*/');
 
+            if ($finder->count() === 0) {
+                Helpers::step('<comment>Not Found Ignored Directory:</comment> .github/');
+            }
+
             foreach ($finder as $file) {
+                Helpers::step('<comment>Removing Ignored Directory:</comment> '.str_replace(Path::current().'/', '', $file->getRealPath()));
+                $this->totalFileSize += $file->getSize();
+                $this->totalDirectories++;
                 $this->files->deleteDirectory($file->getRealPath(), true);
             }
         }
@@ -211,7 +232,7 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeDotFiles(): void
     {
         if (Manifest::isIgnoredVendor(Vendor::DOT_FILES)) {
-            Helpers::step('<options=bold>Removing Dot Files From Vendor</>');
+            Helpers::step('<options=bold>Removing Dot Files</>');
 
             $this->removeFiles([
                 '.editorconfig',
@@ -227,15 +248,28 @@ class CleanIgnoredFilesCommand extends Command
      */
     protected function removeFiles($files, $ignoreDotFiles = true): void
     {
+        $isEmpty = true;
+
         foreach ($files as $item) {
             $finder = (new Finder())
                 ->files()->name($item)
                 ->ignoreDotFiles($ignoreDotFiles)
                 ->in(Path::vendor().'/*/*/');
 
+            if ($finder->count() > 0) {
+                $isEmpty = false;
+            }
+
             foreach ($finder as $file) {
+                $this->totalFileSize += $file->getSize();
+                $this->totalFiles++;
+                Helpers::step('<comment>Removing Ignored File:</comment> '.str_replace(Path::current().'/', '', $file->getRealPath()));
                 $this->files->delete($file->getRealPath());
             }
+        }
+
+        if ($isEmpty) {
+            Helpers::step('<comment>Not Found Ignored File:</comment> '.implode(', ', $files));
         }
     }
 
@@ -245,6 +279,9 @@ class CleanIgnoredFilesCommand extends Command
     protected function removeDirectory($directory): void
     {
         if ($this->files->isDirectory($directory)) {
+            Helpers::step('<comment>Removing Ignored Directory: </comment> '.$directory.'/');
+            $this->totalFileSize += $this->files->size($directory);
+            $this->totalDirectories++;
             $this->files->deleteDirectory($directory, true);
         }
     }
@@ -260,6 +297,8 @@ class CleanIgnoredFilesCommand extends Command
             return;
         }
 
+        Helpers::step('<options=bold>Removing User Ignored Files</>');
+
         $notFoundDirectories = [];
 
         foreach ($ignoredFiles as $pattern) {
@@ -267,8 +306,11 @@ class CleanIgnoredFilesCommand extends Command
 
             if ($this->files->exists($directory.'/'.$filePattern) && $this->files->isDirectory($directory.'/'.$filePattern)) {
                 Helpers::step('<comment>Removing Ignored Directory:</comment> '.$filePattern.'/');
-
+                $fileSize = $this->files->size($directory.'/'.$filePattern);
                 $this->files->deleteDirectory($directory.'/'.$filePattern);
+
+                $this->totalFileSize += $fileSize;
+                $this->totalDirectories++;
             } else {
                 try {
                     $files = (new Finder())
@@ -279,8 +321,11 @@ class CleanIgnoredFilesCommand extends Command
 
                     foreach ($files as $file) {
                         Helpers::step('<comment>Removing Ignored File:</comment> '.str_replace(Path::current().'/', '', $file->getRealPath()));
-
+                        $fileSize = $this->files->size($file->getRealPath());
                         $this->files->delete($file->getRealPath());
+
+                        $this->totalFileSize += $fileSize;
+                        $this->totalFiles++;
                     }
                 } catch (DirectoryNotFoundException) {
                     $notFoundDirectories[] = $directory.'/'.$filePattern;
