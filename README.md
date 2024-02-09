@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ageekdev/vapor-ignore.svg?style=flat-square)](https://packagist.org/packages/ageekdev/vapor-ignore)
 [![Laravel 9.x](https://img.shields.io/badge/Laravel-9.x-red.svg?style=flat-square)](https://laravel.com/docs/9.x)
 [![Laravel 10.x](https://img.shields.io/badge/Laravel-10.x-red.svg?style=flat-square)](http://laravel.com/docs/10.x)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/ageekdev/vapor-ignore/run-tests.yml?label=tests&style=flat-square)](https://github.com/ageekdev/vapor-ignore/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/ageekdev/vapor-ignore.svg?style=flat-square)](https://packagist.org/packages/ageekdev/vapor-ignore)
 
 Vapor Ignore is a package that helps you to clean unnecessary files before deploying your Laravel application to [Laravel Vapor](https://vapor.laravel.com/).
