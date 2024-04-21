@@ -22,10 +22,12 @@ Container::setInstance($container = new Container);
 /**
  * Start the console application.
  */
-$app = new Application('Vapor Ignore', '1.0.0');
+$app = new Application(getPackageName(), getPackageVersion());
 
-$app->add(new Commands\CleanIgnoredFilesCommand);
-$app->add(new Commands\InitCommand);
-$app->add(new Commands\SyncCommand);
+$app->addCommands([
+    new Commands\CleanIgnoredFilesCommand,
+    new Commands\InitCommand,
+    new Commands\SyncCommand,
+]);
 
 $app->run();

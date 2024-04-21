@@ -47,15 +47,20 @@ class Manifest
     /**
      * Write a fresh manifest file.
      */
-    public static function init(): void
+    public static function init(array $configuration = []): void
     {
-        static::freshConfiguration();
+        static::createFreshManifestFile($configuration);
     }
 
     /**
      * Write a fresh vapor-ignore manifest file.
      */
-    protected static function freshConfiguration(): void
+    protected static function createFreshManifestFile(array $configuration = []): void
+    {
+        static::write($configuration ?: static::freshConfiguration());
+    }
+
+    public static function freshConfiguration(): array
     {
         $vendor = [
             'readme' => true,
@@ -74,10 +79,10 @@ class Manifest
             '/tests',
         ];
 
-        static::write([
+        return [
             'vendor' => $vendor,
             'ignore' => $ignore,
-        ]);
+        ];
     }
 
     /**
