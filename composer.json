@@ -1,8 +1,15 @@
 {
     "name": "ageekdev/vapor-ignore",
+    "version": "1.1.0",
     "description": "To clean unnecessary files for Laravel Vapor deployment",
     "keywords": [
-        "laravel", "vapor-ignore", "vapor", "deployment", "serverless", "laravel-vapor", "ignore"
+        "laravel",
+        "vapor-ignore",
+        "vapor",
+        "deployment",
+        "serverless",
+        "laravel-vapor",
+        "ignore"
     ],
     "homepage": "https://github.com/ageekdev/vapor-ignore",
     "license": "MIT",
@@ -22,9 +29,10 @@
         "laravel/vapor-cli": "^1.40"
     },
     "require-dev": {
-        "laravel/pint": "^1.10",
         "larastan/larastan": "^2.4.1",
+        "laravel/pint": "^1.10",
         "orchestra/testbench": "^7.0|^8.0|^9.0",
+        "pestphp/pest": "^2.34",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "roave/security-advisories": "dev-latest"
@@ -32,17 +40,27 @@
     "autoload": {
         "psr-4": {
             "AgeekDev\\VaporIgnore\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
         }
     },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
-        "format": "vendor/bin/pint"
+        "format": "vendor/bin/pint",
+        "test": "vendor/bin/pest"
     },
     "config": {
         "sort-packages": true,
         "optimize-autoloader": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "dev",
