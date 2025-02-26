@@ -2,6 +2,14 @@
 
 All notable changes to `vapor-ignore` will be documented in this file.
 
+## v1.2.0 - 2025-02-26
+
+### What's Changed
+
+* Support Laravel12.x  by @tintnaingwinn in https://github.com/ageekdev/vapor-ignore/pull/3
+
+**Full Changelog**: https://github.com/ageekdev/vapor-ignore/compare/v1.1.1...v1.2.0
+
 ## v1.1.1 - 2024-04-24
 
 ### What's Changed
