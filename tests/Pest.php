@@ -26,10 +26,6 @@ uses(Tests\TestCase::class)->in('Feature');
 
 use AgeekDev\VaporIgnore\Path;
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
-
 /*
 |--------------------------------------------------------------------------
 | Functions

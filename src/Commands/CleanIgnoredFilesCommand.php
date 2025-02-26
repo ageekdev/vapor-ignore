@@ -37,7 +37,7 @@ class CleanIgnoredFilesCommand extends Command
             Helpers::abort('Unable to find vapor ignore manifest file. Please run the "php ./vendor/bin/vapor-ignore init" command first.');
         }
 
-        $this->files = new Filesystem();
+        $this->files = new Filesystem;
 
         $this->removeReadmeFiles();
         $this->removeChangeLogFiles();
@@ -143,7 +143,7 @@ class CleanIgnoredFilesCommand extends Command
                 'phpunit.xml',
             ]);
 
-            $finder = (new Finder())
+            $finder = (new Finder)
                 ->directories()->name(['test', 'tests'])
                 ->in(Path::vendor().'/*/*/');
 
@@ -194,7 +194,7 @@ class CleanIgnoredFilesCommand extends Command
         if (Manifest::isIgnoredVendor(Vendor::DOT_GITHUB)) {
             Helpers::step('<options=bold>Removing .github Folders</>');
 
-            $finder = (new Finder())
+            $finder = (new Finder)
                 ->ignoreDotFiles(false)
                 ->directories()->name('.github')
                 ->in(Path::vendor().'/*/*/');
@@ -251,7 +251,7 @@ class CleanIgnoredFilesCommand extends Command
         $isEmpty = true;
 
         foreach ($files as $item) {
-            $finder = (new Finder())
+            $finder = (new Finder)
                 ->files()->name($item)
                 ->ignoreDotFiles($ignoreDotFiles)
                 ->in(Path::vendor().'/*/*/');
@@ -313,7 +313,7 @@ class CleanIgnoredFilesCommand extends Command
                 $this->totalDirectories++;
             } else {
                 try {
-                    $files = (new Finder())
+                    $files = (new Finder)
                         ->in($directory)
                         ->depth('== 0')
                         ->ignoreDotFiles(false)
