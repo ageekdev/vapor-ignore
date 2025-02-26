@@ -1,6 +1,6 @@
 {
     "name": "ageekdev/vapor-ignore",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "To clean unnecessary files for Laravel Vapor deployment",
     "keywords": [
         "laravel",
@@ -25,13 +25,13 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^9.0|^10.0|^11.0",
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
         "laravel/vapor-cli": "^1.40"
     },
     "require-dev": {
         "larastan/larastan": "^2.4.1",
         "laravel/pint": "^1.10",
-        "orchestra/testbench": "^7.0|^8.0|^9.0",
+        "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
         "pestphp/pest": "^2.34",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",

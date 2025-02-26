@@ -57,7 +57,7 @@ class Command extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->startedAt = new DateTime();
+        $this->startedAt = new DateTime;
 
         $this->vapor = Helpers::app(ConsoleVaporClient::class);
 
