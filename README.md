@@ -5,6 +5,7 @@
 [![Laravel 10.x](https://img.shields.io/badge/Laravel-10.x-red.svg?style=flat-square)](http://laravel.com/docs/10.x)
 [![Laravel 11.x](https://img.shields.io/badge/Laravel-11.x-red.svg?style=flat-square)](http://laravel.com/docs/11.x)
 [![Laravel 12.x](https://img.shields.io/badge/Laravel-12.x-red.svg?style=flat-square)](http://laravel.com/docs/12.x)
+[![Laravel 13.x](https://img.shields.io/badge/Laravel-13.x-red.svg?style=flat-square)](http://laravel.com/docs/13.x)
 [![Total Downloads](https://img.shields.io/packagist/dt/ageekdev/vapor-ignore.svg?style=flat-square)](https://packagist.org/packages/ageekdev/vapor-ignore)
 
 Vapor Ignore is a package that helps you to clean unnecessary files before deploying your Laravel application to [Laravel Vapor](https://vapor.laravel.com/).
