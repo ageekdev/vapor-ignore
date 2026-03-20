@@ -2,6 +2,12 @@
 
 All notable changes to `vapor-ignore` will be documented in this file.
 
+## v1.3.0 - 2026-03-19
+
+### What's Changed
+
+* Support Laravel 13.x
+
 ## v1.2.0 - 2025-02-26
 
 ### What's Changed
