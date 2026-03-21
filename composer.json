@@ -28,12 +28,14 @@
         "laravel/vapor-cli": "^1.40"
     },
     "require-dev": {
-        "larastan/larastan": "^2.4.1",
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.10",
-        "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0|^11.0",
-        "pestphp/pest": "^2.34",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
         "roave/security-advisories": "dev-latest"
     },
     "autoload": {
@@ -46,11 +48,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests"
+            "AgeekDev\\VaporIgnore\\Tests\\": "tests"
         }
     },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
+        "analyse-clear": "vendor/bin/phpstan clear-result-cache",
         "format": "vendor/bin/pint",
         "test": "vendor/bin/pest"
     },
