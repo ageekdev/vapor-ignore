@@ -1,5 +1,7 @@
 <?php
 
+use Composer\InstalledVersions;
+
 if (! function_exists('getPackageName')) {
     function getPackageName(): string
     {
@@ -10,6 +12,6 @@ if (! function_exists('getPackageName')) {
 if (! function_exists('getPackageVersion')) {
     function getPackageVersion(): string
     {
-        return Composer\InstalledVersions::getRootPackage()['pretty_version'];
+        return InstalledVersions::getRootPackage()['pretty_version'];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace AgeekDev\VaporIgnore\Tests;
 
 use AgeekDev\VaporIgnore\Application;
 use AgeekDev\VaporIgnore\Commands\Command;

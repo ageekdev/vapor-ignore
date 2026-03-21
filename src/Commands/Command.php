@@ -20,28 +20,28 @@ class Command extends SymfonyCommand
     /**
      * The Vapor client instance.
      *
-     * @var \Laravel\VaporCli\ConsoleVaporClient
+     * @var ConsoleVaporClient
      */
     public $vapor;
 
     /**
      * The input implementation.
      *
-     * @var \Symfony\Component\Console\Input\InputInterface
+     * @var InputInterface
      */
     public $input;
 
     /**
      * The output implementation.
      *
-     * @var \Symfony\Component\Console\Output\OutputInterface
+     * @var OutputInterface
      */
     public $output;
 
     /**
      * The DateTime representing the time the command started.
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $startedAt;
 

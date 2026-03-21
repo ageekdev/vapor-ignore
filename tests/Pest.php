@@ -1,5 +1,8 @@
 <?php
 
+use AgeekDev\VaporIgnore\Path;
+use AgeekDev\VaporIgnore\Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,20 +14,7 @@
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
-
-/*
-|--------------------------------------------------------------------------
-| Expectations
-|--------------------------------------------------------------------------
-|
-| When you're writing tests, you often need to check that values meet certain conditions. The
-| "expect()" function gives you access to a set of "expectations" methods that you can use
-| to assert different things. Of course, you may extend the Expectation API at any time.
-|
-*/
-
-use AgeekDev\VaporIgnore\Path;
+uses(TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
